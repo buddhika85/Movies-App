@@ -1,1 +1,17 @@
-<h1 class="text-3xl font-bold text-blue-600">Hello Tailwind!</h1>
+<div
+  class="flex flex-col p-5 m-5 border rounded border-slate-400 bg-slate-100 shadow"
+>
+  <h3>Upcoming movies</h3>
+
+  <app-movies-list [movies]="upcomingMovies" />
+
+  <h3>In theaters</h3>
+
+  <app-movies-list [movies]="inTheatresMovies" />
+
+  <!-- <input type="file" class="hidden" #uploader />
+
+  <button class="bg-yellow-200 w-28 p-2 mt-2" (click)="uploader.click()">
+    Upload File
+  </button> -->
+</div>
