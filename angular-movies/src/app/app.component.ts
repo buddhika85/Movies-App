@@ -64,4 +64,8 @@ export class AppComponent {
       ];
     }, 2000);
   }
+
+  processRating(ratedValue: number) {
+    console.log(`ratedValue: ${ratedValue}`);
+  }
 }

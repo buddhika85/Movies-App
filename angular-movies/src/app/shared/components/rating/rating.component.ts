@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -13,7 +13,12 @@ export class RatingComponent {
   @Input({ required: true, transform: (value: number) => Array(value).fill(0) })
   maxRating!: any[];
 
+  @Input()
   selectedRating: number = 0;
+
+  @Output()
+  rated: EventEmitter<number> = new EventEmitter<number>();
+
   clickedRating: number = 0;
 
   onMouseLeave() {
@@ -27,5 +32,7 @@ export class RatingComponent {
   onClickRating(index: number) {
     this.selectedRating = index + 1;
     this.clickedRating = this.selectedRating;
+
+    this.rated.emit(this.selectedRating);
   }
 }
