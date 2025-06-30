@@ -19,7 +19,13 @@
     <div class="movie-title">{{ movie.title }}</div>
 
     <div class="btn-row mx-auto">
-      <button class="edit-btn" (click)="addMovie()">Edit</button>
+      <button
+        class="edit-btn"
+        (click)="addMovie()"
+        [routerLink]="['/movies/edit/', i]"
+      >
+        Edit
+      </button>
 
       <button class="remove-btn" (click)="removeMovie(movie)">Remove</button>
     </div>

@@ -7,11 +7,12 @@ import {
   UpperCasePipe,
 } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-movies-list',
   standalone: true,
-  imports: [NgIf, NgFor],
+  imports: [NgIf, NgFor, RouterLink],
   templateUrl: './movies-list.component.html',
   styleUrl: './movies-list.component.scss',
 })

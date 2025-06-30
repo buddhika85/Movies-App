@@ -61,6 +61,6 @@ export class LandingPageComponent implements OnInit {
             'https://upload.wikimedia.org/wikipedia/en/7/73/Moana_2_poster.jpg',
         },
       ];
-    }, 2000);
+    }, 500);
   }
 }
