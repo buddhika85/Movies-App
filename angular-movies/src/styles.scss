@@ -11,7 +11,19 @@ body {
 }
 
 h3 {
-  @apply font-semibold text-2xl mt-2 mb-2;
+  @apply font-semibold text-2xl mt-2 mb-5;
+}
+
+.lbl {
+  @apply p-2;
+}
+
+.text-box {
+  @apply border border-slate-300 rounded p-2;
+}
+
+.text-box-error {
+  @apply border border-red-300 rounded p-2;
 }
 
 .btn-row {
@@ -28,4 +40,16 @@ h3 {
 
 .remove-btn {
   @apply p-2 bg-red-500 text-white border rounded border-slate-400 hover:bg-red-600;
+}
+
+.cancel-btn {
+  @apply p-2 bg-slate-500 text-white border rounded border-slate-400 hover:bg-slate-600;
+}
+
+.three-col-form {
+  @apply grid grid-cols-3;
+}
+
+.error-div {
+  @apply text-red-500 mx-auto p-2 text-sm;
 }

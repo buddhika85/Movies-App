@@ -92,4 +92,9 @@ export const routes: Routes = [
         (x) => x.EditMovieComponent
       ),
   },
+
+  {
+    path: '**',
+    redirectTo: '', // landing page
+  },
 ];
