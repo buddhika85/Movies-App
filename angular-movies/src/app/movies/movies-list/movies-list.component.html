@@ -11,10 +11,7 @@
 </div>
 
 <div *ngIf="movies && movies.length > 0">
-  <div
-    *ngFor="let movie of movies; let i = index"
-    class="p-5 border rounded border-slate-400 grid grid-cols-2"
-  >
+  <div *ngFor="let movie of movies; let i = index" class="movie-card">
     <img
       *ngIf="!movie.poster"
       src="default.jpg"

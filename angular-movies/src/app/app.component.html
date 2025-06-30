@@ -1,3 +1,9 @@
 <app-menu></app-menu>
 
-<app-rating [maxRating]="5" (rated)="processRating($event)"></app-rating>
+<div class="main-container">
+  <app-movies-list [movies]="inTheatresMovies"></app-movies-list>
+
+  <app-movies-list [movies]="upcomingMovies"></app-movies-list>
+
+  <app-rating [maxRating]="5" (rated)="processRating($event)"></app-rating>
+</div>

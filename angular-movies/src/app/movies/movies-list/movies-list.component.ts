@@ -3,7 +3,7 @@ import {
   DatePipe,
   NgFor,
   NgIf,
-  NgOptimizedImage,
+  //NgOptimizedImage,
   UpperCasePipe,
 } from '@angular/common';
 import { Component, Input } from '@angular/core';

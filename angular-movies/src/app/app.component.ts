@@ -6,7 +6,7 @@ import { RatingComponent } from './shared/components/rating/rating.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MenuComponent, RatingComponent],
+  imports: [MenuComponent, RatingComponent, MoviesListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
