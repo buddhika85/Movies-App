@@ -1,3 +1,11 @@
+.movies-list {
+  @apply flex flex-row;
+}
+
 .movie-card {
-  @apply p-5 m-2 border rounded border-slate-400 grid grid-cols-2;
+  @apply grid grid-cols-1 m-1;
+}
+
+.movie-title {
+  @apply mx-auto font-semibold;
 }

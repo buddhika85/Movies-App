@@ -1,7 +1,3 @@
-<button class="w-30 p-2 bg-blue-600 text-white mt-5" (click)="addMovie()">
-  Add Movie
-</button>
-
 <div *ngIf="!movies">
   <img src="loading.gif" />
 </div>
@@ -10,7 +6,7 @@
   <p>No movies to display</p>
 </div>
 
-<div *ngIf="movies && movies.length > 0">
+<div *ngIf="movies && movies.length > 0" class="movies-list">
   <div *ngFor="let movie of movies; let i = index" class="movie-card">
     <img
       *ngIf="!movie.poster"
@@ -20,16 +16,12 @@
       priority
     />
     <img *ngIf="movie.poster" [src]="movie.poster" width="220" height="326" />
-    <div>
-      <div>{{ movie.title }}</div>
-      <div>{{ movie.releaseDate | date : "MMMM-dd-yyyy" | uppercase }}</div>
-      <div>{{ movie.price | currency }}</div>
-      <button
-        class="w-30 p-2 bg-red-600 text-white mt-5"
-        (click)="removeMovie(movie)"
-      >
-        Remove Movie
-      </button>
+    <div class="movie-title">{{ movie.title }}</div>
+
+    <div class="btn-row mx-auto">
+      <button class="edit-btn" (click)="addMovie()">Edit</button>
+
+      <button class="remove-btn" (click)="removeMovie(movie)">Remove</button>
     </div>
   </div>
 </div>

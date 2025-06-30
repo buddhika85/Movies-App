@@ -5,12 +5,27 @@
 html,
 body {
   height: 100%;
-}
-body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  height: fit-content;
 }
 
-body {
-  height: fit-content;
+h3 {
+  @apply font-semibold text-2xl mt-2 mb-2;
+}
+
+.btn-row {
+  @apply flex flex-row gap-x-2;
+}
+
+.add-btn {
+  @apply p-2 bg-blue-500 text-white border rounded border-slate-400 hover:bg-blue-600;
+}
+
+.edit-btn {
+  @apply p-2 bg-green-500 text-white border rounded border-slate-400 hover:bg-green-600;
+}
+
+.remove-btn {
+  @apply p-2 bg-red-500 text-white border rounded border-slate-400 hover:bg-red-600;
 }

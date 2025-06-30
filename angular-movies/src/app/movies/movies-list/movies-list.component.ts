@@ -11,7 +11,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-movies-list',
   standalone: true,
-  imports: [DatePipe, CurrencyPipe, UpperCasePipe, NgIf, NgFor],
+  imports: [NgIf, NgFor],
   templateUrl: './movies-list.component.html',
   styleUrl: './movies-list.component.scss',
 })

@@ -1,7 +1,11 @@
 <mat-toolbar class="fixed-top">
-  <span>
-    <a mat-button class="top-btn">
-      <mat-icon>local_movies</mat-icon> Angular Movies
-    </a>
-  </span>
+  <a mat-button class="top-btn" routerLink="">
+    <mat-icon>local_movies</mat-icon> Angular Movies
+  </a>
+
+  <a mat-button class="top-btn" routerLink="genres">Genres</a>
+  <a mat-button class="top-btn" routerLink="actors">Actors</a>
+  <a mat-button class="top-btn" routerLink="theatres">Theatres</a>
+
+  <a mat-button class="top-btn" routerLink="movies/create">Create Movie</a>
 </mat-toolbar>
