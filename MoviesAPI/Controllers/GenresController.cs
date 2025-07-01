@@ -34,7 +34,7 @@ namespace MoviesAPI.Controllers
 
             var entity = await inMemoryRepository.GetGenreByIdAsync(id);
             if (entity == null)
-                return NotFound();
+                return NotFoundError("genre not found", $"Id {id} entity unavailable");
 
             return Ok(entity);
         }
@@ -52,7 +52,7 @@ namespace MoviesAPI.Controllers
 
             var entity = await inMemoryRepository.SearchGenreAsync(id, name);
             if (entity == null)
-                return NotFound($"Id {id} entity unavailable");
+                return NotFoundError("genre not found", $"Id {id} and name {name} entity unavailable");
 
             return Ok(entity);
         }
@@ -79,7 +79,6 @@ namespace MoviesAPI.Controllers
             {
                 return ValidationError("id", $"{id} is invalid for Id");
             }
-
             if (id != genre.Id)
             {
                 return ValidationError("id", $"{id} and {genre.Id} do not match");
@@ -88,11 +87,30 @@ namespace MoviesAPI.Controllers
             var entity = await inMemoryRepository.GetGenreByIdAsync(id);
             if (entity == null)
             {
-                return NotFound($"Id {id} entity unavailable");
+                return NotFoundError("genre not found", $"Id {id} entity unavailable");
             }
 
             await inMemoryRepository.UpdateGenreAsync(genre);
             return NoContent();
+        }
+
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<Genre>> Delete([FromRoute] int id)
+        {
+            if (id <= 0)
+            {
+                return ValidationError("id", $"{id} is invalid for Id");
+            }
+            var entity = await inMemoryRepository.GetGenreByIdAsync(id);
+            if (entity == null)
+            {
+                return NotFoundError("genre not found", $"Id {id} entity unavailable");
+            }
+
+            await inMemoryRepository.DeletedGenreAsync(entity);
+            return Ok(entity);
         }
     }
 }

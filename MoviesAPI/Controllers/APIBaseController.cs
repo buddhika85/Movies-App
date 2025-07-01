@@ -14,5 +14,15 @@ namespace MoviesAPI.Controllers
             });
             return new BadRequestObjectResult(problemDetails);
         }
+
+        protected ActionResult NotFoundError(string title, string detail)
+        {
+            return NotFound(new ProblemDetails
+            {
+                Title = title,
+                Detail = detail,
+                Status = StatusCodes.Status404NotFound
+            });
+        }
     }
 }
