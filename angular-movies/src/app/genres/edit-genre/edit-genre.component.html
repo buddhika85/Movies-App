@@ -1,1 +1,6 @@
-<p>edit-genre {{ id }}</p>
+<h3>Edit Genre {{ id }}</h3>
+
+<app-genres-form
+  [genreToEdit]="model"
+  (postFormEmitter)="saveChanges($event)"
+/>

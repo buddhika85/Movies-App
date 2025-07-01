@@ -1,30 +1,3 @@
 <h3>Create Genre</h3>
 
-<form [formGroup]="formGroup" (ngSubmit)="saveChanges()">
-  <div class="three-col-form w-2/5">
-    <label class="lbl">Title</label>
-    <input
-      class="text-box mb-2"
-      type="text"
-      formControlName="title"
-      [class.text-box-error]="(title.dirty || title.touched) && title.invalid"
-    />
-    <div class="error-div">
-      @if ((title.dirty || title.touched) && title.invalid){ @if
-      (title.errors?.['required']) {
-      <span>Required</span>
-      } @if (title.errors?.['minlength']) {
-      <span>Min length of 2 expected</span>
-      } }
-    </div>
-
-    <div></div>
-    <div class="btn-row">
-      <button class="add-btn" [disabled]="formGroup.invalid">
-        Save Changes
-      </button>
-      <button class="cancel-btn" routerLink="/genres">Cancel</button>
-    </div>
-    <label class="lbl-error">{{ formError }}</label>
-  </div>
-</form>
+<app-genres-form [genreToEdit]="null" (postFormEmitter)="saveChanges($event)" />
