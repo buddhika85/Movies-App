@@ -1,6 +1,6 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export function firstLatterShouldBeUppercase(): ValidatorFn {
+export function firstLetterShouldBeUppercase(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = <string>control.value;
 
@@ -10,7 +10,7 @@ export function firstLatterShouldBeUppercase(): ValidatorFn {
     const firstLetter = value[0];
     if (firstLetter !== firstLetter.toUpperCase()) {
       return {
-        firstLatterShouldBeUppercase: {
+        firstLetterShouldBeUppercase: {
           message: 'The first letter should be uppercase',
         },
       };

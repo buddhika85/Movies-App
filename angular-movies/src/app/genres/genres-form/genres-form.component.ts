@@ -15,7 +15,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { GenreCreationDto, GenreDto } from '../../shared/models/genre.models';
-import { firstLatterShouldBeUppercase } from '../../shared/validators/validators';
+import { firstLetterShouldBeUppercase } from '../../shared/validators/validators';
 
 @Component({
   selector: 'app-genres-form',
@@ -43,7 +43,7 @@ export class GenresFormComponent implements OnInit {
         validators: [
           Validators.required,
           Validators.minLength(2),
-          firstLatterShouldBeUppercase(), // custom validator
+          firstLetterShouldBeUppercase(), // custom validator
         ],
       }),
     });

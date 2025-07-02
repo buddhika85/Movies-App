@@ -1,3 +1,6 @@
 <h3>Edit Actor {{ id }}</h3>
 
-<app-actors-form />
+<app-actors-form
+  [model]="actorToEdit"
+  (postFormEmitter)="saveChanges($event)"
+/>

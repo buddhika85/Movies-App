@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActorsFormComponent } from '../actors-form/actors-form.component';
+import { ActorCreationDto } from '../../shared/models/actors.models';
 
 @Component({
   selector: 'app-create-actor',
@@ -11,7 +12,10 @@ import { ActorsFormComponent } from '../actors-form/actors-form.component';
 })
 export class CreateActorComponent {
   private router: Router = inject(Router);
-  saveChanges() {
-    this.router.navigate(['/actors']);
+
+  saveChanges(actor: ActorCreationDto) {
+    console.log('Create New Actor');
+    console.log(actor);
+    this.router.navigate(['actors']);
   }
 }

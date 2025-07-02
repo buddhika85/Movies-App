@@ -1,4 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,6 +13,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ActorCreationDto, ActorDto } from '../../shared/models/actors.models';
+import { firstLetterShouldBeUppercase } from '../../shared/validators/validators';
+import moment from 'moment';
 
 @Component({
   selector: 'app-actors-form',
@@ -18,27 +28,47 @@ export class ActorsFormComponent implements OnInit {
   private formBuilder: FormBuilder = inject(FormBuilder);
   formGroup!: FormGroup<{
     name: FormControl<string>;
-    dateOfBirth: FormControl<Date | null>;
+    dateOfBirth: FormControl<string>;
   }>;
+
+  @Input()
+  model!: ActorDto | null;
+
+  @Output()
+  postFormEmitter: EventEmitter<ActorCreationDto> =
+    new EventEmitter<ActorCreationDto>();
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       name: this.formBuilder.control<string>('', {
         nonNullable: true,
-        validators: [Validators.required, Validators.minLength(2)],
+        validators: [
+          Validators.required,
+          Validators.minLength(2),
+          firstLetterShouldBeUppercase(),
+        ],
       }),
-      dateOfBirth: this.formBuilder.control<Date | null>(null, {
-        nonNullable: false,
-        validators: [],
+      dateOfBirth: this.formBuilder.control<string>('', {
+        nonNullable: true,
+        validators: [Validators.required],
       }),
     });
+
+    // debugger;
+    if (this.model !== null) {
+      const dob = moment(this.model.dateOfBirth).format('YYYY-MM-DD');
+      this.formGroup.patchValue({
+        ...this.model,
+        dateOfBirth: dob,
+      });
+    }
   }
 
   get name(): FormControl<string> {
     return this.formGroup.controls.name;
   }
 
-  get dateOfBirth(): FormControl<Date | null> {
+  get dateOfBirth(): FormControl<string> {
     return this.formGroup.controls.dateOfBirth;
   }
 
@@ -48,7 +78,12 @@ export class ActorsFormComponent implements OnInit {
       return;
     }
 
-    console.log(this.formGroup.value);
+    const actor: ActorCreationDto = {
+      name: this.formGroup.controls.name.value,
+      dateOfBirth: moment(this.formGroup.controls.dateOfBirth.value).toDate(),
+    };
+
+    this.postFormEmitter.emit(actor);
   }
 
   onReset(): void {
