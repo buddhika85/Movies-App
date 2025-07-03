@@ -31,15 +31,25 @@
       @if ((dateOfBirth.touched || dateOfBirth.dirty) && dateOfBirth.invalid) {
       @if (dateOfBirth.errors?.['required']) {
       <span>Required</span>
-      } }
+      } @if (dateOfBirth.errors?.['dateShouldBeInPast']) {
+      <span>Bithday should be a past date</span>
+      }}
     </div>
 
-    <div></div>
+    <app-input-image
+      [imageURL]="model?.picture"
+      title="Actors Picture"
+      (selectedFile)="onImageReceive($event)"
+      class="col-span-3"
+    />
+
+    <div class="pt-5"></div>
     <div class="btn-row">
       <button class="add-btn" type="submit" [disabled]="this.formGroup.invalid">
         Save Changes
       </button>
       <button class="cancel-btn" (click)="onReset()">Cancel</button>
     </div>
+    <div></div>
   </div>
 </form>

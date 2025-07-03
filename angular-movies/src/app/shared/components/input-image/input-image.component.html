@@ -1,0 +1,25 @@
+<div class="three-col-form">
+  <div>
+    <label class="lbl">{{ title }}</label>
+  </div>
+
+  <div>
+    <input type="file" #uploader class="hidden" (change)="change($event)" />
+    <button
+      type="button"
+      class="upload-btn"
+      (click)="uploader.click()"
+      accept="image/*"
+    >
+      Upload Image
+    </button>
+  </div>
+
+  <div *ngIf="imgBase64 !== null">
+    <img width="169" height="250" [src]="imgBase64" />
+  </div>
+
+  <div *ngIf="imageURL">
+    <img width="169" height="250" [src]="imageURL" />
+  </div>
+</div>

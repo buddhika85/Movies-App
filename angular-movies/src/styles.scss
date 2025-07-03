@@ -50,6 +50,10 @@ h3 {
   @apply p-2 bg-slate-500 text-white border rounded border-slate-300 hover:bg-slate-600 text-sm disabled:bg-slate-300;
 }
 
+.upload-btn {
+  @apply p-2 bg-yellow-500 text-gray-500 border rounded border-slate-300 hover:bg-yellow-600 text-sm disabled:bg-slate-300;
+}
+
 .three-col-form {
   @apply grid grid-cols-3;
 }

@@ -30,6 +30,8 @@ export class EditActorComponent implements OnInit {
       id: this.id,
       name: 'Tom Hanks',
       dateOfBirth: new Date('1948-05-25'),
+      picture:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/TomHanksPrincEdw031223_%2811_of_41%29_%28cropped%29.jpg/250px-TomHanksPrincEdw031223_%2811_of_41%29_%28cropped%29.jpg',
     };
   }
 

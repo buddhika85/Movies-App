@@ -14,13 +14,17 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActorCreationDto, ActorDto } from '../../shared/models/actors.models';
-import { firstLetterShouldBeUppercase } from '../../shared/validators/validators';
+import {
+  dateShouldBeInPast,
+  firstLetterShouldBeUppercase,
+} from '../../shared/validators/validators';
 import moment from 'moment';
+import { InputImageComponent } from '../../shared/components/input-image/input-image.component';
 
 @Component({
   selector: 'app-actors-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, InputImageComponent],
   templateUrl: './actors-form.component.html',
   styleUrl: './actors-form.component.scss',
 })
@@ -29,6 +33,7 @@ export class ActorsFormComponent implements OnInit {
   formGroup!: FormGroup<{
     name: FormControl<string>;
     dateOfBirth: FormControl<string>;
+    picture: FormControl<File | string | null>;
   }>;
 
   @Input()
@@ -50,7 +55,10 @@ export class ActorsFormComponent implements OnInit {
       }),
       dateOfBirth: this.formBuilder.control<string>('', {
         nonNullable: true,
-        validators: [Validators.required],
+        validators: [Validators.required, dateShouldBeInPast()],
+      }),
+      picture: this.formBuilder.control<File | string | null>(null, {
+        nonNullable: true,
       }),
     });
 
@@ -72,6 +80,10 @@ export class ActorsFormComponent implements OnInit {
     return this.formGroup.controls.dateOfBirth;
   }
 
+  onImageReceive(file: File) {
+    this.formGroup.controls.picture.setValue(file);
+  }
+
   onSubmit(): void {
     if (this.formGroup.invalid) {
       console.log('Invalid form submission');
@@ -82,6 +94,15 @@ export class ActorsFormComponent implements OnInit {
       name: this.formGroup.controls.name.value,
       dateOfBirth: moment(this.formGroup.controls.dateOfBirth.value).toDate(),
     };
+
+    // on edit mode, if the type of picture is string, there is no change
+    // so we dont need to send it back to API
+    debugger;
+    if (typeof this.formGroup.controls.picture.value !== 'string') {
+      actor.picture = this.formGroup.controls.picture.value;
+    } else {
+      actor.picture = undefined;
+    }
 
     this.postFormEmitter.emit(actor);
   }
