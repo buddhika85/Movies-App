@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 using MoviesAPI.Entities;
+using MoviesAPI.Filters;
 
 namespace MoviesAPI.Controllers
 {
@@ -21,9 +22,13 @@ namespace MoviesAPI.Controllers
         public async Task<ActionResult<IEnumerable<Genre>>> Get() => Ok(await inMemoryRepository.GetAllGenresAsync());
 
 
+
         [ProducesResponseType(typeof(Genre), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        // Execute filter ConsoleLoggerFilter before and after this endpoint exceution
+        [ServiceFilter(typeof(ConsoleLoggerFilter))]
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Genre>> Get([FromRoute] int id)
         {

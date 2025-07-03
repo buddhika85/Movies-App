@@ -1,10 +1,17 @@
 using MoviesAPI;
+using MoviesAPI.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<ConsoleLoggerFilter>();      // scoped as it needs be accessed by multiple threads for multiple requests
+builder.Services.AddScoped<UtcDateTimeFilter>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    // for all controllers
+    //options.Filters.Add<ConsoleLoggerFilter>();         // adding custom filters to execute before and after end point execution 
+});
 
 // using swagger
 builder.Services.AddEndpointsApiExplorer();
