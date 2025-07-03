@@ -3,7 +3,7 @@ using MoviesAPI.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container.git 
 builder.Services.AddScoped<ConsoleLoggerFilter>();      // scoped as it needs be accessed by multiple threads for multiple requests
 builder.Services.AddScoped<UtcDateTimeFilter>();
 
