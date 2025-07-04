@@ -16,13 +16,14 @@ namespace MoviesAPI.Controllers
             this.inMemoryRepository = inMemoryRepository;
         }
 
+        [EndpointSummary("Gets all genres")]
         [ProducesResponseType(typeof(IEnumerable<Genre>), StatusCodes.Status200OK)]
         [HttpGet]
         [OutputCache]       // this is configured to keep 15 seconds in Program.cs
         public async Task<ActionResult<IEnumerable<Genre>>> Get() => Ok(await inMemoryRepository.GetAllGenresAsync());
 
 
-
+        [EndpointSummary("Gets genre by ID")]
         [ProducesResponseType(typeof(Genre), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
