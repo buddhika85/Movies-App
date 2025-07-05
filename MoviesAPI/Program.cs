@@ -10,7 +10,7 @@ builder.Services.AddScoped<UtcDateTimeFilter>();
 builder.Services.AddControllers(options =>
 {
     // for all controllers
-    //options.Filters.Add<ConsoleLoggerFilter>();         // adding custom filters to execute before and after end point execution 
+    options.Filters.Add<ConsoleLoggerFilter>();         // adding custom filters to execute before and after end point execution 
 });
 
 // using swagger
@@ -24,10 +24,13 @@ builder.Services.AddOutputCache(options =>
     options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(15);
 });
 
-
 builder.Services.AddSingleton<InMemoryRepository>();
 
-var app = builder.Build();
+
+
+var app = builder.Build();                  // RUNS ONCE PER APPLICATION CYCLE - This compiles everything into a runnable app
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
