@@ -18,6 +18,7 @@ import {
   TheatreCreationDto,
   TheatreDto,
 } from '../../shared/models/theatres.models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-theatres-form',
@@ -27,6 +28,8 @@ import {
   styleUrl: './theatres-form.component.scss',
 })
 export class TheatresFormComponent implements OnInit {
+  private router: Router = inject(Router);
+
   @Input()
   theatreToEdit!: TheatreDto | null;
 
@@ -60,6 +63,7 @@ export class TheatresFormComponent implements OnInit {
 
   onReset(): void {
     this.formGroup.reset();
+    this.router.navigate(['theatres']);
   }
 
   onSubmit(): void {

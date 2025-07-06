@@ -26,6 +26,14 @@ h3 {
   @apply border border-slate-300 rounded p-2 text-sm;
 }
 
+.select-box {
+  @apply border border-slate-300 rounded p-2 text-sm;
+}
+
+.check-box {
+  @apply border border-slate-300 rounded p-2 text-sm;
+}
+
 .text-box-error {
   @apply border border-red-300 rounded p-2 text-sm;
 }

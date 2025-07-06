@@ -1,0 +1,40 @@
+<h3>Search Movies</h3>
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div class="three-col-form w-2/5">
+    <label class="lbl">Movie name</label>
+    <input type="text" class="text-box mb-2" formControlName="title" />
+    <div class="error-div"></div>
+
+    <label class="lbl">Genre</label>
+    <select class="select-box mb-2" formControlName="genre">
+      <option value="0">---- Select ----</option>
+      @for (genre of genres; track $index) {
+      <option [value]="genre.id">{{ genre.title }}</option>
+      }
+    </select>
+    <div class="error-div"></div>
+
+    <label class="lbl">Upcoming movies</label>
+    <input
+      type="checkbox"
+      class="check-box mb-2"
+      formControlName="upcomingReleases"
+    />
+    <div class="error-div"></div>
+
+    <label class="lbl">In-Theatres movies</label>
+    <input
+      type="checkbox"
+      class="check-box mb-2"
+      formControlName="inTheatres"
+    />
+    <div class="error-div"></div>
+
+    <div></div>
+    <div class="btn-row">
+      <button class="add-btn">Search</button>
+      <button class="cancel-btn" (click)="onReset()">Cancel</button>
+    </div>
+  </div>
+</form>

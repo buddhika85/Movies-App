@@ -94,6 +94,14 @@ export const routes: Routes = [
   },
 
   {
+    path: 'movies/search',
+    loadComponent: () =>
+      import('./movies/movie-search/movie-search.component').then(
+        (x) => x.MovieSearchComponent
+      ),
+  },
+
+  {
     path: '**',
     redirectTo: '', // landing page
   },
