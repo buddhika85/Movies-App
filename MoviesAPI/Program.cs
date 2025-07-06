@@ -9,7 +9,7 @@ builder.Services.AddScoped<UtcDateTimeFilter>();
 
 builder.Services.AddControllers(options =>
 {
-    // for all controllers
+    // filters for all controllers
     options.Filters.Add<ConsoleLoggerFilter>();         // adding custom filters to execute before and after end point execution 
 });
 
