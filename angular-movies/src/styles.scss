@@ -23,19 +23,23 @@ h3 {
 }
 
 .text-box {
-  @apply border border-slate-300 rounded p-2 text-sm;
-}
-
-.select-box {
-  @apply border border-slate-300 rounded p-2 text-sm;
-}
-
-.check-box {
-  @apply border border-slate-300 rounded p-2 text-sm;
+  @apply border border-slate-300 rounded p-2 text-sm hover:cursor-pointer;
 }
 
 .text-box-error {
-  @apply border border-red-300 rounded p-2 text-sm;
+  @apply border border-red-300 rounded p-2 text-sm hover:cursor-pointer;
+}
+
+.select-box {
+  @apply border border-slate-300 rounded p-2 text-sm hover:cursor-pointer;
+}
+
+.check-box {
+  @apply border border-slate-300 rounded p-2 w-6 h-6  accent-green-500 hover:cursor-pointer;
+}
+
+.left-aligned-div {
+  @apply text-left mt-auto;
 }
 
 .btn-row {

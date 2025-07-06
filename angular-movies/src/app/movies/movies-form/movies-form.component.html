@@ -1,7 +1,12 @@
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <div class="three-col-form w-2/5">
     <label class="lbl">Name</label>
-    <input type="text" class="text-box mb-2" formControlName="title" />
+    <input
+      type="text"
+      class="text-box mb-2"
+      formControlName="title"
+      [class.text-box-error]="(title.touched || title.dirty) && title.invalid"
+    />
     <div class="error-div">
       @if ((title.touched || title.dirty) && title.invalid) { @if
       (title.errors?.['required']) {
@@ -18,7 +23,7 @@
     <div class="error-div mb-2"></div>
 
     <label class="lbl">Trailer</label>
-    <input type="text" class="text-box" formControlName="trailer" />
+    <input type="text" class="text-box mb-2" formControlName="trailer" />
     <div class="error-div mb-2"></div>
 
     <app-input-image
@@ -29,7 +34,9 @@
     />
 
     <div></div>
-    <button class="add-btn">Add Movie</button>
-    <button class="cancel-btn" (click)="onReset()">Cancel</button>
+    <div class="btn-row">
+      <button class="add-btn" [disabled]="formGroup.invalid">Save Movie</button>
+      <button class="cancel-btn" (click)="onReset()">Cancel</button>
+    </div>
   </div>
 </form>
