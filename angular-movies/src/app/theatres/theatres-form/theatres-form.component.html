@@ -1,0 +1,24 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div class="three-col-form w-2/5">
+    <label class="lbl">Name</label>
+    <input type="text" class="text-box" formControlName="name" />
+    <div class="error-div">
+      @if ((name.dirty || name.touched) && name.invalid) {
+      @if(name.errors?.['required']) {
+      <span>Requied</span>
+      } @else if (name.errors?.['minlength']) {
+      <span>min length of 2 expected</span>
+      } @else if (name.errors?.['firstLetterShouldBeUppercase']) {
+      <span>First letter should be uppercase</span>
+      } }
+    </div>
+
+    <div></div>
+    <div class="btn-row">
+      <button class="add-btn" type="submit" [disabled]="formGroup.invalid">
+        Save Changes
+      </button>
+      <button class="cancel-btn" (click)="onReset()">Cancel</button>
+    </div>
+  </div>
+</form>

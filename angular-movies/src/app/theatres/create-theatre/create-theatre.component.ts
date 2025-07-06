@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { TheatresFormComponent } from '../theatres-form/theatres-form.component';
 
 @Component({
   selector: 'app-create-theatre',
   standalone: true,
-  imports: [],
+  imports: [TheatresFormComponent],
   templateUrl: './create-theatre.component.html',
   styleUrl: './create-theatre.component.scss',
 })
