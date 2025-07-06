@@ -97,7 +97,7 @@ export class ActorsFormComponent implements OnInit {
 
     // on edit mode, if the type of picture is string, there is no change
     // so we dont need to send it back to API
-    debugger;
+    //debugger;
     if (typeof this.formGroup.controls.picture.value !== 'string') {
       actor.picture = this.formGroup.controls.picture.value;
     } else {

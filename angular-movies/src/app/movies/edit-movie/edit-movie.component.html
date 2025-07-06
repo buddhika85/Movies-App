@@ -1,1 +1,6 @@
-<p>edit-movie {{ id }}</p>
+<h3>Edit movie {{ id }}</h3>
+
+<app-movies-form
+  [movieToEdit]="movieToEdit"
+  (postFormData)="saveChanges($event)"
+></app-movies-form>

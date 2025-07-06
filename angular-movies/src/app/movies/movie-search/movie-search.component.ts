@@ -151,13 +151,13 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
         queryStringObj.title = params.title;
       }
       if (params.genreId) {
-        queryStringObj.genreId = params.genreId;
+        queryStringObj.genreId = Number(params.genreId);
       }
       if (params.inTheatres) {
-        queryStringObj.inTheatres = params.inTheatres;
+        queryStringObj.inTheatres = Boolean(params.inTheatres);
       }
       if (params.upcomingReleases) {
-        queryStringObj.upcomingReleases = params.upcomingReleases;
+        queryStringObj.upcomingReleases = Boolean(params.upcomingReleases);
       }
       this.formGroup.patchValue(queryStringObj);
     });
@@ -169,7 +169,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
     if (searchParams.title) {
       queryStrings.push(`title=${encodeURIComponent(searchParams.title)}`);
     }
-    if (searchParams.genreId) {
+    if (searchParams.genreId !== 0) {
       queryStrings.push(`genreId=${encodeURIComponent(searchParams.genreId)}`);
     }
     if (searchParams.inTheatres) {

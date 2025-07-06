@@ -1,0 +1,35 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div class="three-col-form w-2/5">
+    <label class="lbl">Name</label>
+    <input type="text" class="text-box mb-2" formControlName="title" />
+    <div class="error-div">
+      @if ((title.touched || title.dirty) && title.invalid) { @if
+      (title.errors?.['required']) {
+      <span>Required</span>
+      } @else if (title.errors?.['minlength']) {
+      <span>Min length 2 expected</span>
+      } @else if (title.errors?.['firstLetterShouldBeUppercase']) {
+      <span>First letter should be uppercase</span>
+      } }
+    </div>
+
+    <label class="lbl">Release Date</label>
+    <input type="date" class="text-box mb-2" formControlName="releaseDate" />
+    <div class="error-div mb-2"></div>
+
+    <label class="lbl">Trailer</label>
+    <input type="text" class="text-box" formControlName="trailer" />
+    <div class="error-div mb-2"></div>
+
+    <app-input-image
+      [imageURL]="movieToEdit?.poster"
+      title="Poster"
+      (selectedFile)="onImageReceive($event)"
+      class="col-span-3 mb-2"
+    />
+
+    <div></div>
+    <button class="add-btn">Add Movie</button>
+    <button class="cancel-btn" (click)="onReset()">Cancel</button>
+  </div>
+</form>
