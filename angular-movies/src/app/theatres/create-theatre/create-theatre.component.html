@@ -1,5 +1,6 @@
 <h3>Create Theatre</h3>
 
-<app-theatres-form></app-theatres-form>
-
-<!-- <button class="add-btn" (click)="saveChanges()">Save Changes</button> -->
+<app-theatres-form
+  [theatreToEdit]="null"
+  (postForm)="createTheatre($event)"
+></app-theatres-form>

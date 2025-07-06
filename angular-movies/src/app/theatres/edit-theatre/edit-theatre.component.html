@@ -1,3 +1,6 @@
-<p>edit-theatre {{ id }}</p>
+<h3>Edit Theatre {{ id }}</h3>
 
-<app-theatres-form></app-theatres-form>
+<app-theatres-form
+  [theatreToEdit]="theatreToEdit"
+  (postForm)="editTheatre($event)"
+></app-theatres-form>

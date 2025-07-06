@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TheatresFormComponent } from '../theatres-form/theatres-form.component';
+import { TheatreCreationDto } from '../../shared/models/theatres.models';
 
 @Component({
   selector: 'app-create-theatre',
@@ -12,7 +13,9 @@ import { TheatresFormComponent } from '../theatres-form/theatres-form.component'
 export class CreateTheatreComponent {
   private router: Router = inject(Router);
 
-  saveChanges() {
-    this.router.navigate(['/theatres']);
+  createTheatre(theatre: TheatreCreationDto) {
+    console.log('Create theatre');
+    console.log(theatre);
+    this.router.navigate(['\theatres']);
   }
 }
