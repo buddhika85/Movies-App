@@ -7,7 +7,7 @@
     <div class="error-div"></div>
 
     <label class="lbl">Genre</label>
-    <select class="select-box mb-2" formControlName="genre">
+    <select class="select-box mb-2" formControlName="genreId">
       <option value="0">---- Select ----</option>
       @for (genre of genres; track $index) {
       <option [value]="genre.id">{{ genre.title }}</option>
@@ -33,8 +33,12 @@
 
     <div></div>
     <div class="btn-row">
-      <button class="add-btn">Search</button>
-      <button class="cancel-btn" (click)="onReset()">Cancel</button>
+      <!-- <button class="add-btn">Search</button> -->
+      <button class="cancel-btn" (click)="onReset()">Clear</button>
     </div>
   </div>
 </form>
+
+<h3 class="mt-5">Search Results</h3>
+
+<app-movies-list [movies]="moviesFiltered"></app-movies-list>
