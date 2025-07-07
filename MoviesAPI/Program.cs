@@ -1,10 +1,12 @@
 using MoviesAPI;
 using MoviesAPI.Filters;
+using MoviesAPI.Mddleware;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container 
+builder.Services.AddScoped<CustomExceptionMiddelware>();
 builder.Services.AddScoped<ConsoleLoggerFilter>();      // scoped as it needs be accessed by multiple threads for multiple requests
 builder.Services.AddScoped<LoggerFilter>();
 builder.Services.AddScoped<UtcDateTimeFilter>();
@@ -46,7 +48,10 @@ var app = builder.Build();                  // RUNS ONCE PER APPLICATION CYCLE -
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();            // using built in developer exception page - stack trace, error code scection, route values, headers, cookies
+    //app.UseDeveloperExceptionPage();            // using built in developer exception page - stack trace, error code scection, route values, headers, cookies
+
+    app.UseMiddleware<CustomExceptionMiddelware>(); // custom middleware to tackle exceptions
+
     // using swagger
     app.UseSwagger();
     app.UseSwaggerUI();
