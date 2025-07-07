@@ -29,7 +29,8 @@ namespace MoviesAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
         // Execute filter ConsoleLoggerFilter before and after this endpoint exceution
-        [ServiceFilter(typeof(ConsoleLoggerFilter))]
+        //[ServiceFilter(typeof(ConsoleLoggerFilter))]
+        [ServiceFilter(typeof(LoggerFilter))]
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Genre>> Get([FromRoute] int id)
         {
