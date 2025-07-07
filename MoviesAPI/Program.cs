@@ -1,5 +1,6 @@
 using MoviesAPI;
 using MoviesAPI.Filters;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,15 @@ builder.Services.AddScoped<ConsoleLoggerFilter>();      // scoped as it needs be
 builder.Services.AddScoped<LoggerFilter>();
 builder.Services.AddScoped<UtcDateTimeFilter>();
 
+// Seri Log Logger
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File("Logs/moviesApiLog-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+builder.Services.AddSerilog();
+
+// Globals filters for all action methods
 builder.Services.AddControllers(options =>
 {
     // filters for all controllers
