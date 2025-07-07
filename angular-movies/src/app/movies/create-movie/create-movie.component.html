@@ -3,4 +3,6 @@
 <app-movies-form
   [movieToEdit]="null"
   (postFormData)="saveChanges($event)"
+  [selectedGenres]="selectedGenres"
+  [nonSelectedGenres]="nonSelectedGenres"
 ></app-movies-form>

@@ -20,10 +20,13 @@ import { Location } from '@angular/common';
   styleUrl: './movie-search.component.scss',
 })
 export class MovieSearchComponent implements OnInit, OnDestroy {
+  private formValueChangeSubscription!: Subscription;
+  private activateRouteSubsciption!: Subscription;
+
   genres!: GenreDto[];
   moviesOrginal!: any[];
   moviesFiltered!: any[];
-  private subscription!: Subscription;
+
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private location: Location = inject(Location);
 
@@ -130,37 +133,41 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
     this.filterMovies(this.formGroup.value as MoviesSearchDto);
 
     // search by value change
-    this.subscription = this.formGroup.valueChanges.subscribe((value) => {
-      this.moviesFiltered = this.moviesOrginal;
-      const searchParams = this.formGroup.value as MoviesSearchDto;
-      this.filterMovies(searchParams);
-      this.writeParametersInTheURL(searchParams);
-    });
+    this.formValueChangeSubscription = this.formGroup.valueChanges.subscribe(
+      (value) => {
+        this.moviesFiltered = this.moviesOrginal;
+        const searchParams = this.formGroup.value as MoviesSearchDto;
+        this.filterMovies(searchParams);
+        this.writeParametersInTheURL(searchParams);
+      }
+    );
   }
 
   // read URL query strings and populating form
   readValuesFromUrl(): void {
-    this.activatedRoute.queryParams.subscribe((params: any) => {
-      let queryStringObj: MoviesSearchDto = {
-        title: null,
-        genreId: 0,
-        inTheatres: false,
-        upcomingReleases: false,
-      };
-      if (params.title) {
-        queryStringObj.title = params.title;
+    this.activateRouteSubsciption = this.activatedRoute.queryParams.subscribe(
+      (params: any) => {
+        let queryStringObj: MoviesSearchDto = {
+          title: null,
+          genreId: 0,
+          inTheatres: false,
+          upcomingReleases: false,
+        };
+        if (params.title) {
+          queryStringObj.title = params.title;
+        }
+        if (params.genreId) {
+          queryStringObj.genreId = Number(params.genreId);
+        }
+        if (params.inTheatres) {
+          queryStringObj.inTheatres = Boolean(params.inTheatres);
+        }
+        if (params.upcomingReleases) {
+          queryStringObj.upcomingReleases = Boolean(params.upcomingReleases);
+        }
+        this.formGroup.patchValue(queryStringObj);
       }
-      if (params.genreId) {
-        queryStringObj.genreId = Number(params.genreId);
-      }
-      if (params.inTheatres) {
-        queryStringObj.inTheatres = Boolean(params.inTheatres);
-      }
-      if (params.upcomingReleases) {
-        queryStringObj.upcomingReleases = Boolean(params.upcomingReleases);
-      }
-      this.formGroup.patchValue(queryStringObj);
-    });
+    );
   }
 
   // update browser URL based on form inputs of the user
@@ -231,6 +238,7 @@ export class MovieSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.formValueChangeSubscription.unsubscribe();
+    this.activateRouteSubsciption.unsubscribe();
   }
 }

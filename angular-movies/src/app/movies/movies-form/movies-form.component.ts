@@ -19,15 +19,27 @@ import moment from 'moment';
 import { toBase64 } from '../../shared/functions/toBase64';
 import { InputImageComponent } from '../../shared/components/input-image/input-image.component';
 import { Router } from '@angular/router';
+import { MultipleSelectorComponent } from '../../shared/components/multiple-selector/multiple-selector.component';
+import { MultipleSelectorDto } from '../../shared/models/multipleSelector.models';
 
 @Component({
   selector: 'app-movies-form',
   standalone: true,
-  imports: [ReactiveFormsModule, InputImageComponent],
+  imports: [
+    ReactiveFormsModule,
+    InputImageComponent,
+    MultipleSelectorComponent,
+  ],
   templateUrl: './movies-form.component.html',
   styleUrl: './movies-form.component.scss',
 })
 export class MoviesFormComponent implements OnInit {
+  @Input({ required: true })
+  selectedGenres!: MultipleSelectorDto[];
+
+  @Input({ required: true })
+  nonSelectedGenres!: MultipleSelectorDto[];
+
   @Input()
   movieToEdit!: MovieDto | null;
 
@@ -115,6 +127,8 @@ export class MoviesFormComponent implements OnInit {
       movie.poster = undefined;
     }
 
+    const genresSelected = this.selectedGenres.map((x) => x.key);
+    movie.genreIds = genresSelected;
     this.postFormData.emit(movie);
   }
 

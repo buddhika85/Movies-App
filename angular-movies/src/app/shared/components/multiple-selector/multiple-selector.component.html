@@ -1,0 +1,28 @@
+<div class="parent-div">
+  <div class="grey-round-border text-center mr-1">
+    <span class="text-orange-500 text-center">NOT-SELECTED</span>
+    <ul>
+      @for (item of nonSelectedList; track $index) {
+      <li (click)="select(item, $index)" class="lbl li-item">
+        {{ item.description }}
+      </li>
+      }
+    </ul>
+  </div>
+
+  <div class="btn-col mx-auto my-auto">
+    <button type="button" class="gray-btn" (click)="selectAll()">>></button>
+    <button class="gray-btn" (click)="deSelectAll()"><<</button>
+  </div>
+
+  <div class="ml-1 grey-round-border text-center">
+    <span class="lbl mb-2 text-green-500">SELECTED</span>
+    <ul>
+      @for (item of selectedList; track $index) {
+      <li (click)="deselect(item, $index)" class="lbl li-item">
+        {{ item.description }}
+      </li>
+      }
+    </ul>
+  </div>
+</div>

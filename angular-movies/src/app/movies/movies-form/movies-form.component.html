@@ -33,6 +33,13 @@
       class="col-span-3 mb-2"
     />
 
+    <label class="lbl">Select Genres</label>
+    <app-multiple-selector
+      [nonSelectedList]="nonSelectedGenres"
+      [selectedList]="selectedGenres"
+      class="col-span-2"
+    ></app-multiple-selector>
+
     <div></div>
     <div class="btn-row">
       <button class="add-btn" [disabled]="formGroup.invalid">Save Movie</button>

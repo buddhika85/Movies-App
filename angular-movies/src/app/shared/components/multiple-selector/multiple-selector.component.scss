@@ -1,0 +1,6 @@
+.parent-div {
+  @apply grid grid-cols-3 mx-auto mt-5;
+}
+.li-item {
+  @apply hover:cursor-pointer hover:bg-slate-50;
+}

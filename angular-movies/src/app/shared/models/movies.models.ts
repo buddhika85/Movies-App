@@ -12,6 +12,7 @@ export interface MovieCreationDto {
   releaseDate: Date;
   trailer?: string | null;
   poster?: File | string | null;
+  genreIds?: number[];
 }
 
 export interface MovieDto extends BaseDto {
@@ -19,4 +20,5 @@ export interface MovieDto extends BaseDto {
   releaseDate: Date;
   trailer?: string | null;
   poster?: string;
+  genreIds?: number[];
 }

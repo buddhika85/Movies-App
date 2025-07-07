@@ -10,6 +10,10 @@ body {
   height: fit-content;
 }
 
+.three-col-form {
+  @apply grid grid-cols-3;
+}
+
 h3 {
   @apply font-semibold text-lg mt-2 mb-5;
 }
@@ -46,6 +50,10 @@ h3 {
   @apply flex flex-row gap-x-2 mt-5;
 }
 
+.btn-col {
+  @apply flex flex-col gap-y-2;
+}
+
 .add-btn {
   @apply p-2 bg-blue-500 text-white border rounded border-slate-300 hover:bg-blue-600 text-sm disabled:bg-slate-300;
 }
@@ -63,11 +71,15 @@ h3 {
 }
 
 .upload-btn {
-  @apply p-2 bg-yellow-500 text-gray-500 border rounded border-slate-300 hover:bg-yellow-600 text-sm disabled:bg-slate-300;
+  @apply p-2 bg-orange-500 text-white border rounded border-slate-300 hover:bg-orange-600 text-sm disabled:bg-slate-300;
 }
 
-.three-col-form {
-  @apply grid grid-cols-3;
+.gray-btn {
+  @apply p-2 bg-gray-200 text-black border rounded border-slate-600 hover:bg-gray-300 text-sm disabled:bg-white;
+}
+
+.grey-round-border {
+  @apply border border-gray-100 rounded p-1;
 }
 
 .error-div {
