@@ -34,11 +34,19 @@ import { MultipleSelectorDto } from '../../shared/models/multipleSelector.models
   styleUrl: './movies-form.component.scss',
 })
 export class MoviesFormComponent implements OnInit {
+  // genres
   @Input({ required: true })
   selectedGenres!: MultipleSelectorDto[];
 
   @Input({ required: true })
   nonSelectedGenres!: MultipleSelectorDto[];
+
+  // theares
+  @Input({ required: true })
+  selectedTheatres!: MultipleSelectorDto[];
+
+  @Input({ required: true })
+  nonSelectedTheatres!: MultipleSelectorDto[];
 
   @Input()
   movieToEdit!: MovieDto | null;
@@ -127,8 +135,14 @@ export class MoviesFormComponent implements OnInit {
       movie.poster = undefined;
     }
 
+    // genres selected
     const genresSelected = this.selectedGenres.map((x) => x.key);
     movie.genreIds = genresSelected;
+
+    // theatres selected
+    const theatresSelected = this.selectedTheatres.map((x) => x.key);
+    movie.theatreIds = theatresSelected;
+
     this.postFormData.emit(movie);
   }
 

@@ -28,6 +28,9 @@ export class EditMovieComponent implements OnChanges, OnInit {
   nonSelectedGenres!: MultipleSelectorDto[];
   selectedGenres!: MultipleSelectorDto[];
 
+  selectedTheatres: MultipleSelectorDto[] = [];
+  nonSelectedTheatres!: MultipleSelectorDto[];
+
   ngOnInit(): void {
     // To Do: get from DB
     const all: MultipleSelectorDto[] = [
@@ -35,7 +38,37 @@ export class EditMovieComponent implements OnChanges, OnInit {
       { key: 2, description: 'Action' },
       { key: 3, description: 'Comedy' },
     ];
+    this.setupGenresForMultipleSelector(all);
 
+    // To Do: get from DB
+    const allTheatres: MultipleSelectorDto[] = [
+      { key: 1, description: 'Theatre X' },
+      { key: 2, description: 'Theatre Y' },
+      { key: 3, description: 'Theatre Z' },
+    ];
+    this.setupTheatresForMultipleSelector(allTheatres);
+  }
+
+  private setupTheatresForMultipleSelector(allTheatres: MultipleSelectorDto[]) {
+    if (this.movieToEdit.theatreIds) {
+      this.nonSelectedTheatres = allTheatres.filter(
+        (x) =>
+          !this.movieToEdit.theatreIds?.some(
+            (selectedTheatre) => selectedTheatre === x.key
+          )
+      );
+      this.selectedTheatres = allTheatres.filter((x) =>
+        this.movieToEdit.theatreIds?.some(
+          (selectedTheatre) => selectedTheatre === x.key
+        )
+      );
+    } else {
+      this.nonSelectedTheatres = allTheatres;
+      this.selectedTheatres = [];
+    }
+  }
+
+  private setupGenresForMultipleSelector(all: MultipleSelectorDto[]): void {
     if (this.movieToEdit.genreIds) {
       this.nonSelectedGenres = all.filter(
         (x) =>
@@ -64,6 +97,7 @@ export class EditMovieComponent implements OnChanges, OnInit {
       poster:
         'https://upload.wikimedia.org/wikipedia/en/b/bd/Spider-Man_Far_From_Home_poster.jpg',
       genreIds: [1, 3],
+      theatreIds: [3],
     };
   }
 

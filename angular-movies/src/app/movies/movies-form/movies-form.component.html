@@ -40,6 +40,13 @@
       class="col-span-2"
     ></app-multiple-selector>
 
+    <label class="lbl">Select Theatres</label>
+    <app-multiple-selector
+      [nonSelectedList]="nonSelectedTheatres"
+      [selectedList]="selectedTheatres"
+      class="col-span-2"
+    ></app-multiple-selector>
+
     <div></div>
     <div class="btn-row">
       <button class="add-btn" [disabled]="formGroup.invalid">Save Movie</button>

@@ -17,12 +17,21 @@ export class CreateMovieComponent implements OnInit {
   selectedGenres: MultipleSelectorDto[] = [];
   nonSelectedGenres!: MultipleSelectorDto[];
 
+  selectedTheatres: MultipleSelectorDto[] = [];
+  nonSelectedTheatres!: MultipleSelectorDto[];
+
   ngOnInit(): void {
     // To Do: get from DB
     this.nonSelectedGenres = [
       { key: 1, description: 'Drama' },
       { key: 2, description: 'Action' },
       { key: 3, description: 'Comedy' },
+    ];
+    // To Do: get from DB
+    this.nonSelectedTheatres = [
+      { key: 1, description: 'Theatre X' },
+      { key: 2, description: 'Theatre Y' },
+      { key: 3, description: 'Theatre Z' },
     ];
   }
 
