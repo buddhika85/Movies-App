@@ -1,0 +1,55 @@
+<form>
+  <div>
+    <input
+      class="text-box"
+      type="text"
+      placeholder="write the name of actor"
+      [formControl]="control"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete #auto (optionSelected)="handleSelection($event)">
+      @for (actor of actors; track $index) {
+      <mat-option [value]="actor">
+        <div class="grid grid-cols-2 p-2">
+          <img [src]="actor.picture" />
+          <label class="lbl">{{ actor.name }}</label>
+        </div>
+      </mat-option>
+      }
+    </mat-autocomplete>
+  </div>
+</form>
+
+@if (actorsSelected.length > 0) {
+<table mat-table [dataSource]="actorsSelected" class="mat-elevation-z8">
+  <ng-container matColumnDef="image">
+    <td mat-cell *matCellDef="let element">
+      <img style="width: 50px" [src]="element.picture" />
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <td mat-cell *matCellDef="let element">
+      {{ element.name }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="character">
+    <td mat-cell *matCellDef="let element">
+      <!-- <mat-form-field appearance="outline" style="margin: 10px 0">
+        <mat-label>Character</mat-label>
+        <input matInput name="character" [(ngModel)]="element.character" />
+      </mat-form-field> -->
+      <input [(ngModel)]="element.character" class="text-box" />
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <td mat-cell *matCellDef="let element">
+      <mat-icon mat-list-icon (click)="delete(element)"> close </mat-icon>
+    </td>
+  </ng-container>
+
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+</table>
+}

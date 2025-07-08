@@ -21,6 +21,7 @@ import { InputImageComponent } from '../../shared/components/input-image/input-i
 import { Router } from '@angular/router';
 import { MultipleSelectorComponent } from '../../shared/components/multiple-selector/multiple-selector.component';
 import { MultipleSelectorDto } from '../../shared/models/multipleSelector.models';
+import { ActorsAutoCompleteComponent } from '../../actors/actors-auto-complete/actors-auto-complete.component';
 
 @Component({
   selector: 'app-movies-form',
@@ -29,6 +30,7 @@ import { MultipleSelectorDto } from '../../shared/models/multipleSelector.models
     ReactiveFormsModule,
     InputImageComponent,
     MultipleSelectorComponent,
+    ActorsAutoCompleteComponent,
   ],
   templateUrl: './movies-form.component.html',
   styleUrl: './movies-form.component.scss',

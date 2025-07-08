@@ -11,3 +11,9 @@ export interface ActorCreationDto {
   dateOfBirth: Date;
   picture?: File | string | null;
 }
+
+export interface ActorsAutoCompleteDto extends BaseDto {
+  name: string;
+  character: string;
+  picture: string;
+}
