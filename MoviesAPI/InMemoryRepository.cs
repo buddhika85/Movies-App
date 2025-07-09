@@ -2,7 +2,7 @@
 
 namespace MoviesAPI
 {
-    public class InMemoryRepository
+    public class InMemoryRepository : IInMemoryRepository
     {
         private List<Genre> genres;
         private TimeSpan artificalDelayTime = TimeSpan.FromMilliseconds(2000);

@@ -16,6 +16,8 @@ builder.Services.AddScoped<UtcDateTimeFilter>();
 
 builder.Services.AddTransient<IValidator<Genre>, GenreFluentValidator>();
 
+builder.Services.AddSingleton<IInMemoryRepository, InMemoryRepository>();
+
 
 // Seri Log Logger
 Log.Logger = new LoggerConfiguration()
@@ -47,7 +49,7 @@ builder.Services.AddOutputCache(options =>
     options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(15);
 });
 
-builder.Services.AddSingleton<InMemoryRepository>();
+
 
 
 
