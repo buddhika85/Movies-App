@@ -5,7 +5,7 @@ namespace MoviesAPI
     public class InMemoryRepository : IInMemoryRepository
     {
         private List<Genre> genres;
-        private TimeSpan artificalDelayTime = TimeSpan.FromMilliseconds(2000);
+        private TimeSpan artificalDelayTime = TimeSpan.FromMilliseconds(1000);
 
         public InMemoryRepository()
         {
@@ -18,7 +18,7 @@ namespace MoviesAPI
 
         public async Task<IEnumerable<Genre>> GetAllGenresAsync()
         {
-            await Task.Delay(artificalDelayTime * 2);
+            await Task.Delay(artificalDelayTime);
             return genres;
         }
 
