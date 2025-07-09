@@ -1,6 +1,9 @@
+using FluentValidation;
 using MoviesAPI;
+using MoviesAPI.Entities;
 using MoviesAPI.Filters;
 using MoviesAPI.Mddleware;
+using MoviesAPI.Validations.FluentValidations;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +13,9 @@ builder.Services.AddScoped<CustomExceptionMiddelware>();
 builder.Services.AddScoped<ConsoleLoggerFilter>();      // scoped as it needs be accessed by multiple threads for multiple requests
 builder.Services.AddScoped<LoggerFilter>();
 builder.Services.AddScoped<UtcDateTimeFilter>();
+
+builder.Services.AddTransient<IValidator<Genre>, GenreFluentValidator>();
+
 
 // Seri Log Logger
 Log.Logger = new LoggerConfiguration()
@@ -23,8 +29,12 @@ builder.Services.AddSerilog();
 builder.Services.AddControllers(options =>
 {
     // filters for all controllers
-    //options.Filters.Add<ConsoleLoggerFilter>();         // adding custom filters to execute before and after end point execution 
+    options.Filters.Add<ConsoleLoggerFilter>();         // adding custom filters to execute before and after end point execution 
 });
+
+// add fluent validators 
+builder.Services.AddValidatorsFromAssemblyContaining<GenreFluentValidator>();   // FluentValidation will automatically run before the action method and populate ModelState with errors.
+
 
 // using swagger
 builder.Services.AddEndpointsApiExplorer();

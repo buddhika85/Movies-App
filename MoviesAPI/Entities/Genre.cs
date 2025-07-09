@@ -7,6 +7,8 @@ namespace MoviesAPI.Entities
     {
         [Required(ErrorMessage = "{0} is required")]
         [FirstLetterUpperCase]                                  // no need of Attribute prefix
+        [MinLength(2)]
+        [MaxLength(50)]
         public required string Title { get; set; }
     }
 }

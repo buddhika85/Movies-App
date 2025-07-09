@@ -73,6 +73,10 @@ namespace MoviesAPI.Controllers
             {
                 return ValidationError("genre", "genre value is mandatory");
             }
+            if (await inMemoryRepository.GenreWithSameNameExists(genre.Title))
+            {
+                return ValidationError("title", $"genre with same title {genre.Title} already exists");
+            }
             await inMemoryRepository.AddGenreAsync(genre);
             return CreatedAtAction(nameof(Get), new { id = genre.Id }, genre);      //same as Created($"/api/genres/{genre.Id}", genre);
         }

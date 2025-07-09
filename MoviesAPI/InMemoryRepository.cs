@@ -5,7 +5,7 @@ namespace MoviesAPI
     public class InMemoryRepository
     {
         private List<Genre> genres;
-        private TimeSpan artificalDelayTime = TimeSpan.FromMilliseconds(3000);
+        private TimeSpan artificalDelayTime = TimeSpan.FromMilliseconds(2000);
 
         public InMemoryRepository()
         {
@@ -59,6 +59,12 @@ namespace MoviesAPI
             {
                 genres.Remove(entity);
             }
+        }
+
+        public async Task<bool> GenreWithSameNameExists(string title)
+        {
+            await Task.Delay(artificalDelayTime);
+            return genres.FirstOrDefault(x => x.Title.ToLower() == title.ToLower()) != null;
         }
     }
 }
