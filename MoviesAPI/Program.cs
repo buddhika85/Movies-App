@@ -43,7 +43,7 @@ builder.Services.AddSingleton<InMemoryRepository>();
 
 var app = builder.Build();                  // RUNS ONCE PER APPLICATION CYCLE - This compiles everything into a runnable app
 
-
+#region MIDDLEWARE_PIPELINE
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -70,6 +70,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();                 // auth should be done before mapping controllers middleware
 
-app.MapControllers();                   // HIGH LEVEL MIDDLEWARE - Route registration and End Point Execution 
+app.MapControllers();                   // HIGH LEVEL MIDDLEWARE - Route registration and Filter pipeline execution, and then End Point Execution 
+
+#endregion #region MIDDLEWARE_PIPELINE
 
 app.Run();                              // RUNS ONCE PER APPLICATION CYCLE - Hosts application on Kestral and it starts listening for HTTP Requests, DOES NOT EXECUTE PER REQUEST
