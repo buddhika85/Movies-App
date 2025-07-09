@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.Extensions.Configuration;
 using MoviesAPI.Entities;
 using MoviesAPI.Filters;
 
@@ -10,14 +11,24 @@ namespace MoviesAPI.Controllers
     public class GenresController : APIBaseController
     {
         private readonly IOutputCacheStore outputCacheStore;
+        private readonly IConfiguration configuration;
         private readonly IInMemoryRepository repository;
         private const string cacheTag = "genres";
 
-        public GenresController(IOutputCacheStore outputCacheStore, IInMemoryRepository inMemoryRepository)
+        public GenresController(IOutputCacheStore outputCacheStore, IConfiguration configuration, IInMemoryRepository inMemoryRepository)
         {
             this.outputCacheStore = outputCacheStore;
+            this.configuration = configuration;
             repository = inMemoryRepository;
         }
+
+        [HttpGet("/get-configs-test")]
+        public ActionResult TestConfigurations()
+        {
+            //return Ok(configuration.GetValue<string>("ConnectionStrings:default"));
+            return Ok(configuration["ConnectionStrings:default"]);
+        }
+
 
         [EndpointSummary("Gets all genres")]
         [ProducesResponseType(typeof(IEnumerable<Genre>), StatusCodes.Status200OK)]
