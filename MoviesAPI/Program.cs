@@ -19,6 +19,18 @@ builder.Services.AddTransient<IValidator<Genre>, GenreFluentValidator>();
 builder.Services.AddSingleton<IInMemoryRepository, InMemoryRepository>();
 
 
+// CORS
+var allowedOrigins = builder.Configuration["AllowedOrgings"]?.ToString().Split(",") ?? [];
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins(allowedOrigins).AllowAnyMethod().AllowAnyHeader();
+        //policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();      // allowing any one to access our API
+    });
+});
+
+
 // Seri Log Logger
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
@@ -74,11 +86,18 @@ else
     app.UseExceptionHandler("/error");
 }
 
+app.UseHttpsRedirection();
+
+
+
+app.UseRouting();
+
+app.UseCors();
 
 app.UseOutputCache();                   // use outputcache middleware
 
 
-app.UseHttpsRedirection();
+
 
 app.UseAuthorization();                 // auth should be done before mapping controllers middleware
 
