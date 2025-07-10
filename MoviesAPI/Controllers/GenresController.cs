@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
-using MoviesAPI.Data.Repositories;
+using MoviesAPI.DTOs;
 using MoviesAPI.Entities;
 using MoviesAPI.Filters;
+using MoviesAPI.Services.Interfaces;
 
 namespace MoviesAPI.Controllers
 {
@@ -12,14 +13,14 @@ namespace MoviesAPI.Controllers
     {
         private readonly IOutputCacheStore outputCacheStore;
         private readonly IConfiguration configuration;
-        private readonly IInMemoryRepository repository;
+        private readonly IGenreService service;
         private const string cacheTag = "genres";
 
-        public GenresController(IOutputCacheStore outputCacheStore, IConfiguration configuration, IInMemoryRepository inMemoryRepository)
+        public GenresController(IOutputCacheStore outputCacheStore, IConfiguration configuration, IGenreService service)
         {
             this.outputCacheStore = outputCacheStore;
             this.configuration = configuration;
-            repository = inMemoryRepository;
+            this.service = service;
         }
 
         [HttpGet("/get-configs-test")]
@@ -34,7 +35,7 @@ namespace MoviesAPI.Controllers
         [ProducesResponseType(typeof(IEnumerable<Genre>), StatusCodes.Status200OK)]
         [HttpGet]
         [OutputCache(Tags = [cacheTag])]       // this is configured to keep 15 seconds in Program.cs
-        public async Task<ActionResult<IEnumerable<Genre>>> Get() => Ok(await repository.GetAllGenresAsync());
+        public async Task<ActionResult<IEnumerable<GenreDto>>> Get() => Ok(await service.GetAllGenresAsync());
 
 
         [EndpointSummary("Gets genre by ID")]
@@ -46,18 +47,18 @@ namespace MoviesAPI.Controllers
         //[ServiceFilter(typeof(ConsoleLoggerFilter))]
         [ServiceFilter(typeof(LoggerFilter))]
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Genre>> Get([FromRoute] int id)
+        public async Task<ActionResult<GenreDto>> Get([FromRoute] int id)
         {
             if (id <= 0)
             {
                 return ValidationError("id", $"{id} is invalid for Id");
             }
 
-            var entity = await repository.GetGenreByIdAsync(id);
-            if (entity == null)
+            var dto = await service.GetGenreByIdAsync(id);
+            if (dto == null)
                 return NotFoundError("genre not found", $"Id {id} entity unavailable");
 
-            return Ok(entity);
+            return Ok(dto);
         }
 
         [ProducesResponseType(typeof(Genre), StatusCodes.Status200OK)]
@@ -65,34 +66,34 @@ namespace MoviesAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [OutputCache(Tags = [cacheTag])]
         [HttpGet("SearchGenre/{id:int}")]
-        public async Task<ActionResult<Genre>> Get([FromRoute] int id, [FromQuery] string name)
+        public async Task<ActionResult<GenreDto>> Get([FromRoute] int id, [FromQuery] string name)
         {
             if (id <= 0)
             {
                 return ValidationError("id", $"{id} is invalid for Id");
             }
 
-            var entity = await repository.SearchGenreAsync(id, name);
-            if (entity == null)
+            var dto = await service.SearchGenreAsync(id, name);
+            if (dto == null)
                 return NotFoundError("genre not found", $"Id {id} and name {name} entity unavailable");
 
-            return Ok(entity);
+            return Ok(dto);
         }
 
         [ProducesResponseType(typeof(Genre), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
-        public async Task<ActionResult<Genre>> Post([FromBody] Genre genre)
+        public async Task<ActionResult<Genre>> Post([FromBody] GenreDto genre)
         {
             if (genre == null)
             {
                 return ValidationError("genre", "genre value is mandatory");
             }
-            if (await repository.GenreWithSameNameExists(genre.Title))
+            if (await service.GenreWithSameNameExists(genre.Title))
             {
                 return ValidationError("title", $"genre with same title {genre.Title} already exists");
             }
-            await repository.AddGenreAsync(genre);
+            await service.AddGenreAsync(genre);
             await outputCacheStore.EvictByTagAsync(cacheTag, default);
             return CreatedAtAction(nameof(Get), new { id = genre.Id }, genre);      //same as Created($"/api/genres/{genre.Id}", genre);
         }
@@ -100,7 +101,7 @@ namespace MoviesAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put([FromRoute] int id, [FromBody] Genre genre)
+        public async Task<ActionResult> Put([FromRoute] int id, [FromBody] GenreDto genre)
         {
             if (id <= 0)
             {
@@ -111,13 +112,13 @@ namespace MoviesAPI.Controllers
                 return ValidationError("id", $"{id} and {genre.Id} do not match");
             }
 
-            var entity = await repository.GetGenreByIdAsync(id);
-            if (entity == null)
+            var dto = await service.GetGenreByIdAsync(id);
+            if (dto == null)
             {
                 return NotFoundError("genre not found", $"Id {id} entity unavailable");
             }
 
-            await repository.UpdateGenreAsync(genre);
+            await service.UpdateGenreAsync(dto);
             await outputCacheStore.EvictByTagAsync(cacheTag, default);
             return NoContent();
         }
@@ -131,15 +132,15 @@ namespace MoviesAPI.Controllers
             {
                 return ValidationError("id", $"{id} is invalid for Id");
             }
-            var entity = await repository.GetGenreByIdAsync(id);
-            if (entity == null)
+            var dto = await service.GetGenreByIdAsync(id);
+            if (dto == null)
             {
                 return NotFoundError("genre not found", $"Id {id} entity unavailable");
             }
 
-            await repository.DeletedGenreAsync(entity);
+            await service.DeleteGenreAsync(dto);
             await outputCacheStore.EvictByTagAsync(cacheTag, default);
-            return Ok(entity);
+            return Ok(dto);
         }
     }
 }
