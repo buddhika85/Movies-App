@@ -7,11 +7,11 @@ public static class MappingExtensions
 {
     public static GenreDto ToDto(this Genre entity)
     {
-        return new GenreDto { Title = entity.Title };
+        return new GenreDto { Id = entity.Id, Title = entity.Title };
     }
 
     public static Genre ToEntity(this GenreDto dto)
     {
-        return new Genre { Title = dto.Title };
+        return new Genre { Id = dto.Id, Title = dto.Title };
     }
 }

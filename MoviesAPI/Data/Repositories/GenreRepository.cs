@@ -13,27 +13,34 @@ namespace MoviesAPI.Data.Repositories
             context = dbContext;
         }
 
-        public async Task AddGenreAsync(Genre genre)
+        public async Task<Genre> AddGenreAsync(Genre genre)
         {
             context.Genres.Add(genre);
             await context.SaveChangesAsync();
+            return genre;
         }
 
-        public async Task DeleteGenreAsync(Genre genre)
+        public async Task<Genre> DeleteGenreAsync(Genre genre)
         {
-            context.Remove(genre);
+            var entityToDelete = await GetGenreByIdAsync(genre.Id);
+            if (entityToDelete == null)
+            {
+                throw new ArgumentException($"Genre with Id {genre.Id} unavailable for deletion");
+            }
+            context.Remove(entityToDelete);
             await context.SaveChangesAsync();
+            return genre;
         }
 
         public async Task<bool> GenreWithSameNameExists(string title)
         {
 
-            return await
+            return (await
                 (from genre in context.Genres
                  where genre.Title.Equals(title, StringComparison.OrdinalIgnoreCase)
                  select genre)
                  .AsNoTracking()
-                 .CountAsync() > 0;
+                 .CountAsync()) > 0;
         }
 
         public async Task<IEnumerable<Genre>> GetAllGenresAsync()

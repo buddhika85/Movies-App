@@ -14,14 +14,17 @@ public class GenreService : IGenreService
         this.repository = repository;
     }
 
-    public async Task AddGenreAsync(GenreDto genre)
+    public async Task<GenreDto> AddGenreAsync(GenreDto genre)
     {
-        await repository.AddGenreAsync(genre.ToEntity());
+        var entity = await repository.AddGenreAsync(genre.ToEntity());
+        genre.Id = entity.Id;
+        return genre;
     }
 
-    public async Task DeleteGenreAsync(GenreDto genre)
+    public async Task<GenreDto> DeleteGenreAsync(GenreDto genre)
     {
-        await repository.DeleteGenreAsync(genre.ToEntity());
+        var entity = await repository.DeleteGenreAsync(genre.ToEntity());
+        return entity.ToDto();
     }
 
     public async Task<bool> GenreWithSameNameExists(string title)

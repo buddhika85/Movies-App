@@ -46,7 +46,7 @@ namespace MoviesAPI.Controllers
         // Execute filter ConsoleLoggerFilter before and after this endpoint exceution
         //[ServiceFilter(typeof(ConsoleLoggerFilter))]
         [ServiceFilter(typeof(LoggerFilter))]
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name = "GetGenreById")]
         public async Task<ActionResult<GenreDto>> Get([FromRoute] int id)
         {
             if (id <= 0)
@@ -60,6 +60,8 @@ namespace MoviesAPI.Controllers
 
             return Ok(dto);
         }
+
+
 
         [ProducesResponseType(typeof(Genre), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -80,6 +82,8 @@ namespace MoviesAPI.Controllers
             return Ok(dto);
         }
 
+
+
         [ProducesResponseType(typeof(Genre), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
@@ -89,14 +93,16 @@ namespace MoviesAPI.Controllers
             {
                 return ValidationError("genre", "genre value is mandatory");
             }
-            if (await service.GenreWithSameNameExists(genre.Title))
-            {
-                return ValidationError("title", $"genre with same title {genre.Title} already exists");
-            }
-            await service.AddGenreAsync(genre);
+            //if (await service.GenreWithSameNameExists(genre.Title))
+            //{
+            //    return ValidationError("title", $"genre with same title {genre.Title} already exists");
+            //}
+            genre = await service.AddGenreAsync(genre);
             await outputCacheStore.EvictByTagAsync(cacheTag, default);
-            return CreatedAtAction(nameof(Get), new { id = genre.Id }, genre);      //same as Created($"/api/genres/{genre.Id}", genre);
+            return CreatedAtRoute("GetGenreById", new { id = genre.Id }, genre);      //same as Created($"/api/genres/{genre.Id}", genre);
         }
+
+
 
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -118,10 +124,12 @@ namespace MoviesAPI.Controllers
                 return NotFoundError("genre not found", $"Id {id} entity unavailable");
             }
 
-            await service.UpdateGenreAsync(dto);
+            await service.UpdateGenreAsync(genre);
             await outputCacheStore.EvictByTagAsync(cacheTag, default);
             return NoContent();
         }
+
+
 
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -138,7 +146,7 @@ namespace MoviesAPI.Controllers
                 return NotFoundError("genre not found", $"Id {id} entity unavailable");
             }
 
-            await service.DeleteGenreAsync(dto);
+            dto = await service.DeleteGenreAsync(dto);
             await outputCacheStore.EvictByTagAsync(cacheTag, default);
             return Ok(dto);
         }

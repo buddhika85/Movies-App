@@ -11,7 +11,7 @@ using MoviesAPI.Data;
 namespace MoviesAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250710051827_GenresTable")]
+    [Migration("20250710064000_GenresTable")]
     partial class GenresTable
     {
         /// <inheritdoc />
@@ -34,8 +34,7 @@ namespace MoviesAPI.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

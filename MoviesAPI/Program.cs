@@ -3,9 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using MoviesAPI;
 using MoviesAPI.Data;
 using MoviesAPI.Data.Repositories;
+using MoviesAPI.Data.RepositoryInterfaces;
 using MoviesAPI.Entities;
 using MoviesAPI.Filters;
 using MoviesAPI.Mddleware;
+using MoviesAPI.Services.Implemenations;
+using MoviesAPI.Services.Interfaces;
 using MoviesAPI.Validations.FluentValidations;
 using Serilog;
 
@@ -24,6 +27,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]);
 });
+
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<IGenreService, GenreService>();
 
 // CORS
 var allowedOrigins = builder.Configuration["AllowedOrgings"]?.ToString().Split(",") ?? [];

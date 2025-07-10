@@ -11,9 +11,15 @@ namespace MoviesAPI.Data
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+
+        //    if (!Genres.Any())
+        //    {
+        //        modelBuilder.Entity<Genre>().HasData(new Genre { Title = "Action" }, new Genre { Title = "Comedy" });
+        //    }
+
+        //    SaveChanges();
+        //}
     }
 }
