@@ -1,6 +1,6 @@
 ﻿using MoviesAPI.Entities;
 
-namespace MoviesAPI
+namespace MoviesAPI.Data.Repositories
 {
     public interface IInMemoryRepository
     {

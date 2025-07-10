@@ -1,5 +1,8 @@
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using MoviesAPI;
+using MoviesAPI.Data;
+using MoviesAPI.Data.Repositories;
 using MoviesAPI.Entities;
 using MoviesAPI.Filters;
 using MoviesAPI.Mddleware;
@@ -17,7 +20,10 @@ builder.Services.AddScoped<UtcDateTimeFilter>();
 builder.Services.AddTransient<IValidator<Genre>, GenreFluentValidator>();
 
 builder.Services.AddSingleton<IInMemoryRepository, InMemoryRepository>();
-
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]);
+});
 
 // CORS
 var allowedOrigins = builder.Configuration["AllowedOrgings"]?.ToString().Split(",") ?? [];

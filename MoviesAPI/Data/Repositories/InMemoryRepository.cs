@@ -1,4 +1,5 @@
-﻿using MoviesAPI.Entities;
+﻿using MoviesAPI.Data.Repositories;
+using MoviesAPI.Entities;
 
 namespace MoviesAPI
 {

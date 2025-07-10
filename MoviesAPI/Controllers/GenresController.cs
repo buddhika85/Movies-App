@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
-using Microsoft.Extensions.Configuration;
+using MoviesAPI.Data.Repositories;
 using MoviesAPI.Entities;
 using MoviesAPI.Filters;
 
@@ -26,7 +26,7 @@ namespace MoviesAPI.Controllers
         public ActionResult TestConfigurations()
         {
             //return Ok(configuration.GetValue<string>("ConnectionStrings:default"));
-            return Ok(configuration["ConnectionStrings:default"]);
+            return Ok(configuration["ConnectionStrings:DefaultConnection"]);
         }
 
 
