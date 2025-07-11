@@ -1,3 +1,5 @@
 <h3>Create Genre</h3>
 
+<app-display-error [errors]="errors" />
+
 <app-genres-form [genreToEdit]="null" (postFormEmitter)="saveChanges($event)" />

@@ -60,10 +60,11 @@ export class GenresFormComponent implements OnInit {
 
   saveChanges() {
     if (this.formGroup.valid) {
+      this.formError = '';
       const genre = this.formGroup.value as GenreCreationDto;
       this.postFormEmitter.emit(genre);
+    } else {
+      this.formError = 'Please check form errors';
     }
-    this.formError = 'Please check form errors';
-    return;
   }
 }
